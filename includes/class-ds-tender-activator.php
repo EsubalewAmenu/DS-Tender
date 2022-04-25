@@ -40,6 +40,7 @@ class Ds_Tender_Activator
 		self::ds_tender_docs_create_table();
 		self::ds_tender_companies_create_table();
 		self::ds_tender_categories_create_table();
+		self::ds_tender_sources_create_table();
 		self::ds_bt_settings_create_table();
 	}
 
@@ -69,6 +70,7 @@ class Ds_Tender_Activator
 			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
+			$sql .= "  `user_id`  int(10) NOT NULL, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
 			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";
@@ -95,6 +97,7 @@ class Ds_Tender_Activator
 
 			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
+			$sql .= "  `user_id`  int(10) NOT NULL, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
 			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";
@@ -102,6 +105,12 @@ class Ds_Tender_Activator
 
 			$sql .= "  PRIMARY KEY (`id`) ";
 			$sql .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ; ";
+
+			dbDelta($sql);
+			$sql = "INSERT INTO " . $wp_ds_bt_table . " (`source_name`, `two_merkato_id`, `user_id`) VALUES ";
+			$sql .= "('2merkato', '1', '1'),";
+			$sql .= "('herald', '2', '1'),";
+			$sql .= "('reporter', '3', '1')";
 
 			dbDelta($sql);
 		}
@@ -123,6 +132,7 @@ class Ds_Tender_Activator
 
 			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
+			$sql .= "  `user_id`  int(10) NOT NULL, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
 			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";
@@ -154,6 +164,7 @@ class Ds_Tender_Activator
 
 			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
+			$sql .= "  `user_id`  int(10) NOT NULL, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
 			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";
@@ -183,6 +194,7 @@ class Ds_Tender_Activator
 
 			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
+			$sql .= "  `user_id`  int(10) NOT NULL, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
 			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";

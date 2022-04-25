@@ -39,8 +39,7 @@ class DS_tender_public_get_tender_api
                     if (false) {
                         echo "db updated test working";
                     } else {
-                        $Ds_tender_admin_parser = new Ds_tender_admin_parser();
-                        $Ds_tender_admin_parser->checkUpdate();
+                        echo "db updated test working";
                     }
                 },
                 'permission_callback' => function () {

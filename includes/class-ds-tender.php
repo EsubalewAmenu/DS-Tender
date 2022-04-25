@@ -27,7 +27,8 @@
  * @subpackage Ds_Tender/includes
  * @author     Esubalew Amenu <esubalew.a2009@gmail.com>
  */
-class Ds_Tender {
+class Ds_Tender
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -66,8 +67,9 @@ class Ds_Tender {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
-		if ( defined( 'DS_TENDER_VERSION' ) ) {
+	public function __construct()
+	{
+		if (defined('DS_TENDER_VERSION')) {
 			$this->version = DS_TENDER_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -78,7 +80,6 @@ class Ds_Tender {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -97,36 +98,38 @@ class Ds_Tender {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ds-tender-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ds-tender-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ds-tender-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ds-tender-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ds-tender-admin.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/controller/common.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/controller/parser.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-ds-tender-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/controller/common.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/controller/tender_admin_base.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/controller/company.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/controller/tender.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-ds-tender-public.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/controller/api/get_tenders.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-ds-tender-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/controller/api/get_tenders.php';
 
 		$this->loader = new Ds_Tender_Loader();
-
 	}
 
 	/**
@@ -138,12 +141,12 @@ class Ds_Tender {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new Ds_Tender_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -153,13 +156,23 @@ class Ds_Tender {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$plugin_admin = new Ds_Tender_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Ds_Tender_Admin($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
+		$DS_tender_admin_base = new DS_tender_admin_base();
+		$this->loader->add_action('admin_menu', $DS_tender_admin_base, 'ds_tender_admin_menu_section');
+
+		$DS_tender_admin_company = new DS_tender_admin_company();
+		$this->loader->add_action('wp_ajax_ds_tender_save_company', $DS_tender_admin_company, 'wp_ajax_ds_tender_save_company', 1, 1);
+		$this->loader->add_action('wp_ajax_ds_tender_get_company_id', $DS_tender_admin_company, 'wp_ajax_ds_tender_get_company_id', 1, 1);
+
+		$DS_tender_admin_tender = new DS_tender_admin_tender();
+		$this->loader->add_action('wp_ajax_ds_tender_save_tender', $DS_tender_admin_tender, 'wp_ajax_ds_tender_save_tender', 1, 1);
 	}
 
 	/**
@@ -169,12 +182,13 @@ class Ds_Tender {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new Ds_Tender_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Ds_Tender_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
 		$DS_tender_public_get_tender_api = new DS_tender_public_get_tender_api();
 		$this->loader->add_action('rest_api_init', $DS_tender_public_get_tender_api, 'rest_get_tender', 1, 1);
@@ -185,7 +199,8 @@ class Ds_Tender {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -196,7 +211,8 @@ class Ds_Tender {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -206,7 +222,8 @@ class Ds_Tender {
 	 * @since     1.0.0
 	 * @return    Ds_Tender_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -216,8 +233,8 @@ class Ds_Tender {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
-
 }

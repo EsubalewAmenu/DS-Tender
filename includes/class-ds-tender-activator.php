@@ -30,7 +30,9 @@ class Ds_Tender_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+sample https://tender.2merkato.com/tenders/6260f8ca664f5e521ee5e467
 
+Tender table, Tender docs table, Regions, Company Info,sources, categories
 	}
 
 }

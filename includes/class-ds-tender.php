@@ -115,12 +115,15 @@ class Ds_Tender {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ds-tender-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/controller/common.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/controller/parser.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-ds-tender-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/controller/api/get_tenders.php';
 
 		$this->loader = new Ds_Tender_Loader();
 
@@ -173,6 +176,8 @@ class Ds_Tender {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$DS_tender_public_get_tender_api = new DS_tender_public_get_tender_api();
+		$this->loader->add_action('rest_api_init', $DS_tender_public_get_tender_api, 'rest_get_tender', 1, 1);
 	}
 
 	/**

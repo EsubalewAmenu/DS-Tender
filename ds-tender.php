@@ -30,6 +30,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if (!defined("ds_tender"))
+    define("ds_tender", "ds_tender");
+if (!defined("ds_tender_PLAGIN_DIR"))
+    define("ds_tender_PLAGIN_DIR", plugin_dir_path(__FILE__));
+if (!defined("ds_tender_PLAGIN_URL"))
+    define("ds_tender_PLAGIN_URL", plugin_dir_url(__FILE__));
+
+
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org

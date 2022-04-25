@@ -33,10 +33,8 @@ class Ds_Tender_Activator
 	public static function activate()
 	{
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		// sample https://tender.2merkato.com/tenders/6260f8ca664f5e521ee5e467
 
 		//region, users from ds base services plugin
-		// Tender table, Tender docs table, Regions, Company Info,sources, categories
 
 		self::ds_tenders_create_table();
 		self::ds_tender_docs_create_table();
@@ -68,6 +66,8 @@ class Ds_Tender_Activator
 			$sql .= "  `region_id` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
 
 			$sql .= "  `company_id`  int(10) NOT NULL, ";
+			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
+
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
@@ -93,6 +93,7 @@ class Ds_Tender_Activator
 
 			$sql .= "  `source_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 
+			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
@@ -120,6 +121,7 @@ class Ds_Tender_Activator
 			$sql .= "  `doc_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `url` text NOT NULL, ";
 
+			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
@@ -150,6 +152,7 @@ class Ds_Tender_Activator
 			$sql .= "  `fax` varchar(25) COLLATE utf8mb4_unicode_ci NULL, ";
 			$sql .= "  `address` text NULL, ";
 
+			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
 			$sql .= "  `enabled` int(10) DEFAULT 1, ";
 
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
@@ -178,11 +181,12 @@ class Ds_Tender_Activator
 			$sql .= "  `sub_category`  int(10) DEFAULT 0, ";
 			$sql .= "  `third_category`  int(10) DEFAULT 0, ";
 
+			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
+			$sql .= "  `enabled` int(10) DEFAULT 1, ";
+
 			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
 			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";
 			$sql .= "  `deleted_at` TIMESTAMP NULL DEFAULT NULL, ";
-
-			$sql .= "  `enabled` int(10) DEFAULT 1, ";
 
 			$sql .= "  PRIMARY KEY (`id`) ";
 			$sql .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ; ";

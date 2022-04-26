@@ -146,7 +146,7 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
         <?php
         include_once ds_tender_PLAGIN_DIR . '/admin/partials/tender/categories.php';
         ?>
-        <input type="hidden" id="edit_tender_id" value="<?php echo $tender->id ?>">
+        <input type="hidden" id="edit_tender_id" value="<?php if (isset($tender)) echo $tender->id ?>">
 
         <div class="form-group">
 
@@ -207,6 +207,23 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
         });
 
         jQuery("#save_tender").click(function() {
+
+
+            var List = {
+                "id": [],
+                "dataid": [],
+                "text": []
+            };
+            jQuery("#treeview").hummingbird("getChecked", {
+                list: List,
+                onlyEndNodes: true,
+                onlyParents: false,
+                fromThis: false
+            });
+            jQuery("#displayItems").html(List.text.join("<br>"));
+            var L = List.id.length;
+            console.log(List)
+
 
             if (isAllFiled()) {
                 const save = document.querySelector('.save_tender')
@@ -291,23 +308,6 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                 $filled = false;
             }
 
-            // alert(isFileUploaded + " data " )
-
-            // if (isFileUploaded == "") {
-            //     jQuery("#error_id_feature_image").html('Please choose feature image first');
-            //     $filled = false;
-            // } else jQuery("#error_id_feature_image").html('');
-
-            // if (!jQuery(".topic").val()) {
-            //     jQuery("#error_id_topicc").html('This filed is required');
-            //     $filled = false;
-            // } else jQuery("#error_id_topic").html('');
-            // if (!jQuery("[name='content']").val()) {
-
-            //     jQuery("#error_id_content").html('This filed is required');
-            //     $filled = false;
-            // } else jQuery("#error_id_content").html('');
-
             if (tinyMCE.get("title").getContent({
                     format: 'raw'
                 }) === '<p><br data-mce-bogus=\"1\"></p>') {
@@ -320,11 +320,6 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                 jQuery("#server_response").append('content is required</br>');
                 $filled = false;
             }
-            // if (!jQuery(".tag").val()) {
-
-            //     jQuery("#error_id_tag").html('This filed is required');
-            //     $filled = false;
-            // } else jQuery("#error_id_tag").html('');
 
             return $filled;
 

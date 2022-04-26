@@ -12,7 +12,7 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
 
 
 ?>
-<div id="div_tender_add" class="card card-primary">
+<div id="div_tender_add" class="card-primary">
     <div class="card-header">
         <h4>New tender</h4>
     </div>

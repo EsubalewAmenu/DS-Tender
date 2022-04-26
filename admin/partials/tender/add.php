@@ -48,8 +48,10 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                     </select>
                 </div>
                 <div class="form-group col-sm-5">
-                    <label for="two_merkato_id">two merkato id</label>
+                    <label for="two_merkato_id">2merkato tender id</label>
                     <input required id="two_merkato_id" type="text" class="form-control" id="two_merkato_id" value="<?php if (isset($tender->two_merkato_id)) echo $tender->two_merkato_id ?>">
+                    <div id="ds_tender_check_if_added_ajax_response" class="form-group"></div>
+                    <input type="hidden" id="is_tender_already_added" value="-1">
                 </div>
 
                 <div class="form-group col-sm-5">
@@ -159,6 +161,27 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
     var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
     jQuery(document).ready(function() {
 
+        jQuery("#two_merkato_id").focusout(function() {
+            jQuery.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'ds_tender_check_if_added',
+                    two_merkato_id: jQuery(this).val(),
+                },
+                success: async function(response) {
+                    response = JSON.parse(response)
+                    if (response) {
+                        jQuery("#ds_tender_check_if_added_ajax_response").html("Tender already added");
+                        jQuery("#is_tender_already_added").val("0");
+                    } else {
+                        jQuery("#ds_tender_check_if_added_ajax_response").html("")
+                        jQuery("#is_tender_already_added").val("1");
+                    }
+                }
+            });
+
+        });
         jQuery("#company_2merkato_id").focusout(function() {
             jQuery.ajax({
                 url: ajaxurl,
@@ -246,19 +269,23 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
             jQuery("#server_response").html("");
 
             if (!jQuery("#region").val()) {
-                jQuery("#server_response").append('region filed is required');
+                jQuery("#server_response").append('region filed is required</br>');
                 $filled = false;
             }
             if (!jQuery("#company_id").val()) {
-                jQuery("#server_response").append('company filed is required');
+                jQuery("#server_response").append('company filed is required</br>');
                 $filled = false;
             }
             if (!jQuery("#two_merkato_id").val()) {
-                jQuery("#server_response").append('2merkato id filed is required');
+                jQuery("#server_response").append('2merkato id filed is required</br>');
+                $filled = false;
+            }
+            if (jQuery("#is_tender_already_added").val() === "0") {
+                jQuery("#server_response").append('This tender is already added</br>');
                 $filled = false;
             }
             if (!jQuery("#source").val()) {
-                jQuery("#server_response").append('source is required');
+                jQuery("#server_response").append('source is required</br>');
                 $filled = false;
             }
 
@@ -282,13 +309,13 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
             if (tinyMCE.get("title").getContent({
                     format: 'raw'
                 }) === '<p><br data-mce-bogus=\"1\"></p>') {
-                jQuery("#server_response").append('title is required');
+                jQuery("#server_response").append('title is required</br>');
                 $filled = false;
             }
             if (tinyMCE.get("content").getContent({
                     format: 'raw'
                 }) === '<p><br data-mce-bogus=\"1\"></p>') {
-                jQuery("#server_response").append('content is required');
+                jQuery("#server_response").append('content is required</br>');
                 $filled = false;
             }
             // if (!jQuery(".tag").val()) {

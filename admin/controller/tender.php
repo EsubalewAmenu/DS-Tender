@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -27,6 +28,16 @@ class DS_tender_admin_tender
 	}
 
 
+	function wp_ajax_ds_tender_check_if_added()
+	{
+		global $table_prefix, $wpdb;
+		$wp_table = $table_prefix . "ds_tenders";
+
+		$company = $wpdb->get_row("SELECT id, user_id FROM $wp_table WHERE two_merkato_id = '" . $_POST['two_merkato_id'] . "'");
+		// print_r($company);
+		echo (json_encode($company));
+		die();
+	}
 	function wp_ajax_ds_tender_save_tender()
 	{
 

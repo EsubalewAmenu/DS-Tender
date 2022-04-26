@@ -204,6 +204,19 @@ class Ds_Tender_Activator
 			$sql .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ; ";
 
 			dbDelta($sql);
+
+			$sql = "INSERT INTO " . $wp_ds_bt_table . " (`id`, `category_name`, `main_category`, `sub_category`, `two_merkato_id`, `user_id`) VALUES ";
+			$sql .= "('1', 'Accounting and Auditing, Accounting System Design', '1', '0', '0', '1'),";
+			$sql .= "('2', 'Advertising and Promotion', '1', '0', '0', '1'),";
+			$sql .= "('3', 'Public Address Systems', '0', '2', '0', '1'),";
+			$sql .= "('4', 'Event Organizing and Planning', '0', '2', '0', '1'),";
+			$sql .= "('5', 'Public Relations', '0', '2', '0', '1'),";
+			$sql .= "('6', 'Promotional Items', '0', '2', '0', '1'),";
+			$sql .= "('7', 'Graphic Design', '0', '2', '0', '1'),";
+			$sql .= "('8', 'Billboards and Digital Advertising', '0', '2', '0', '1'),";
+			$sql .= "('9', 'Printed Advertising Materials', '0', '2', '0', '1')";
+
+			dbDelta($sql);
 		}
 	}
 

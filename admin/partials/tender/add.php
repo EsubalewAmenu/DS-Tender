@@ -143,7 +143,9 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
             </div>
             <hr>
         </div>
-
+        <?php
+        include_once ds_tender_PLAGIN_DIR . '/admin/partials/tender/categories.php';
+        ?>
         <input type="hidden" id="edit_tender_id" value="<?php echo $tender->id ?>">
 
         <div class="form-group">

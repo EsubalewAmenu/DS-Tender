@@ -40,6 +40,7 @@ class Ds_Tender_Activator
 		self::ds_tender_docs_create_table();
 		self::ds_tender_companies_create_table();
 		self::ds_tender_categories_create_table();
+		self::ds_tender_tender_categories_create_table();
 		self::ds_tender_sources_create_table();
 		self::ds_bt_settings_create_table();
 	}
@@ -215,6 +216,30 @@ class Ds_Tender_Activator
 			$sql .= "('7', 'Graphic Design', '0', '2', '0', '1'),";
 			$sql .= "('8', 'Billboards and Digital Advertising', '0', '2', '0', '1'),";
 			$sql .= "('9', 'Printed Advertising Materials', '0', '2', '0', '1')";
+
+			dbDelta($sql);
+		}
+	}
+	public static function ds_tender_tender_categories_create_table()
+	{
+
+		global $table_prefix, $wpdb;
+
+		$wp_ds_bt_table = $table_prefix . "ds_tender_tender_categories";
+
+		if ($wpdb->get_var("show tables like '$wp_ds_bt_table'") != $wp_ds_bt_table) {
+			$sql = "CREATE TABLE `" . $wp_ds_bt_table . "` ( ";
+			$sql .= "  `id` int(10) unsigned NOT NULL AUTO_INCREMENT, ";
+
+			$sql .= "  `tender_id`  int(10) DEFAULT 0, ";
+			$sql .= "  `category_id`  int(10) DEFAULT 0, ";
+
+			$sql .= "  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, ";
+			$sql .= "  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, ";
+			$sql .= "  `deleted_at` TIMESTAMP NULL DEFAULT NULL, ";
+
+			$sql .= "  PRIMARY KEY (`id`) ";
+			$sql .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ; ";
 
 			dbDelta($sql);
 		}

@@ -1,85 +1,93 @@
-<div id="div_company_add" class="card card-primary">
-    <div class="card-header">
-        <h4>New company</h4>
-    </div>
+<div id="" class="main_container" style="display: flex;">
+    <div id="div_company_add" class="card-primary">
+        <div class="card-header">
+            <h4>New company</h4>
+        </div>
 
-    <div class="card-body">
-        <div class="row">
-
+        <div class="card-body">
             <div class="row">
 
-                <div class="form-group col-sm-5">
-                    <label for="two_merkato_id">2merkato id</label>
-                    <input required id="two_merkato_id" type="text" class="form-control" id="two_merkato_id" value="<?php if (isset($company->two_merkato_id)) echo $company->two_merkato_id ?>">
-                </div>
-                <div class="form-group col-sm-5">
-                    <label for="company_name">company name</label>
-                    <input required id="company_name" type="text" class="form-control" id="company_name" value="<?php if (isset($company->company_name)) echo $company->company_name ?>">
+                <div class="row">
+
+                    <div class="form-group col-sm-5">
+                        <label for="two_merkato_id">2merkato id</label>
+                        <input required id="two_merkato_id" type="text" class="form-control" id="two_merkato_id" value="<?php if (isset($company->two_merkato_id)) echo $company->two_merkato_id ?>">
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label for="company_name">company name</label>
+                        <input required id="company_name" type="text" class="form-control" id="company_name" value="<?php if (isset($company->company_name)) echo $company->company_name ?>">
+                    </div>
+
+                    <div class="form-group col-sm-5">
+                        <label for="phone">phone</label>
+                        <input required id="phone" type="text" class="form-control" id="phone" value="<?php if (isset($company->phone)) echo $company->phone ?>">
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label for="website">website</label>
+                        <input required id="website" type="text" class="form-control" id="website" value="<?php if (isset($company->website)) echo $company->website ?>">
+                    </div>
+
+                    <div class="form-group col-sm-5">
+                        <label for="email">email</label>
+                        <input required id="email" type="text" class="form-control" id="email" value="<?php if (isset($company->email)) echo $company->email ?>">
+                    </div>
+
+                    <div class="form-group col-sm-5">
+                        <label for="fax">fax</label>
+                        <input required id="fax" type="text" class="form-control" id="fax" value="<?php if (isset($company->fax)) echo $company->fax ?>">
+                    </div>
+
                 </div>
 
-                <div class="form-group col-sm-5">
-                    <label for="phone">phone</label>
-                    <input required id="phone" type="text" class="form-control" id="phone" value="<?php if (isset($company->phone)) echo $company->phone ?>">
-                </div>
-                <div class="form-group col-sm-5">
-                    <label for="website">website</label>
-                    <input required id="website" type="text" class="form-control" id="website" value="<?php if (isset($company->website)) echo $company->website ?>">
+                <hr>
+
+
+                <div class="form-group col-12">
+                    <label for="address">address</label>
+                    <?php
+                    // default settings - Kv_front_editor.php
+                    $content = '';
+                    $editor_id = 'address';
+                    $settings =   array(
+                        'wpautop' => true, // use wpautop?
+                        'media_buttons' => true, // show insert/upload button(s)
+                        'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
+                        'textarea_rows' => 2, //get_option('default_post_edit_rows', 5), // rows="..."
+                        'tabindex' => '',
+                        'editor_css' => '', //  extra styles for both visual and HTML editors buttons, 
+                        'editor_class' => '', // add extra class(es) to the editor textarea
+                        'teeny' => false, // output the minimal editor config used in Press This
+                        'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
+                        'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
+                        'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
+                    );
+
+                    wp_editor($content, $editor_id, $settings = array());
+                    ?>
                 </div>
 
-                <div class="form-group col-sm-5">
-                    <label for="email">email</label>
-                    <input required id="email" type="text" class="form-control" id="email" value="<?php if (isset($company->email)) echo $company->email ?>">
-                </div>
-
-                <div class="form-group col-sm-5">
-                    <label for="fax">fax</label>
-                    <input required id="fax" type="text" class="form-control" id="fax" value="<?php if (isset($company->fax)) echo $company->fax ?>">
-                </div>
-
+                <hr>
             </div>
 
-            <hr>
+            <input type="hidden" id="edit_company_id" value="<?php echo $company->id ?>">
 
+            <div class="form-group">
 
-            <div class="form-group col-12">
-                <label for="address">address</label>
-                <?php
-                // default settings - Kv_front_editor.php
-                $content = '';
-                $editor_id = 'address';
-                $settings =   array(
-                    'wpautop' => true, // use wpautop?
-                    'media_buttons' => true, // show insert/upload button(s)
-                    'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
-                    'textarea_rows' => 2, //get_option('default_post_edit_rows', 5), // rows="..."
-                    'tabindex' => '',
-                    'editor_css' => '', //  extra styles for both visual and HTML editors buttons, 
-                    'editor_class' => '', // add extra class(es) to the editor textarea
-                    'teeny' => false, // output the minimal editor config used in Press This
-                    'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
-                    'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
-                    'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
-                );
-
-                wp_editor($content, $editor_id, $settings = array());
-                ?>
+                <button value="1" type="button" id="save_company" class="save_company btn btn-primary">
+                    <i class="fa fa-plus"> </i> Save
+                </button>
+            </div>
+            <div id="server_response" class="form-group">
             </div>
 
-            <hr>
         </div>
 
-        <input type="hidden" id="edit_company_id" value="<?php echo $company->id ?>">
-
-        <div class="form-group">
-
-            <button value="1" type="button" id="save_company" class="save_company btn btn-primary">
-                <i class="fa fa-plus"> </i> Save
-            </button>
-        </div>
-        <div id="server_response" class="form-group">
-        </div>
 
     </div>
+
+    <?php
+    include_once ds_tender_PLAGIN_DIR . '/admin/partials/company/index.php';
+    ?>
 
 </div>
 <script type="text/javascript">

@@ -32,7 +32,7 @@ class DS_tender_public_get_tender_api
         // test with https://tezt.localhost/api/ds_tender/v1/tenders/0/1,2,4
 
         add_action('rest_api_init', function () {
-            register_rest_route(ds_tender . '/v1', '/tenders/(?P<offset>\d+)/(?P<categories>[1-9][1-9,]+[1-9])', array( // where categories are 1,2,23,56
+            register_rest_route(ds_tender . '/v1', '/tenders/(?P<offset>\d+)/(?P<categories>[0-9][0-9,]+[0-9])', array( // where categories are 1,2,23,56
                 'methods' => 'GET',
                 'callback' => function (WP_REST_Request $request) {
 

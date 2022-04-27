@@ -84,20 +84,4 @@
 <script src="<?php echo ds_tender_PLAGIN_URL . 'hummingbird/hummingbird-treeview.js' ?>"></script>
 <script>
     jQuery("#treeview").hummingbird();
-    jQuery("#checkAll").click(function() {
-        jQuery("#treeview").hummingbird("checkAll");
-    });
-    jQuery("#uncheckAll").click(function() {
-        jQuery("#treeview").hummingbird("uncheckAll");
-    });
-    jQuery("#collapseAll").click(function() {
-        jQuery("#treeview").hummingbird("collapseAll");
-    });
-    jQuery("#checkNode").click(function() {
-        jQuery("#treeview").hummingbird("checkNode", {
-            attr: "id",
-            name: "node-0-2-2",
-            expandParents: false,
-        });
-    });
 </script>

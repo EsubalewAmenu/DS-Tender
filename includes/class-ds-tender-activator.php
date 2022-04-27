@@ -215,7 +215,146 @@ class Ds_Tender_Activator
 			$sql .= "('6', 'Promotional Items', '0', '2', '0', '1'),";
 			$sql .= "('7', 'Graphic Design', '0', '2', '0', '1'),";
 			$sql .= "('8', 'Billboards and Digital Advertising', '0', '2', '0', '1'),";
-			$sql .= "('9', 'Printed Advertising Materials', '0', '2', '0', '1')";
+			$sql .= "('9', 'Printed Advertising Materials', '0', '2', '0', '1'),";
+
+			$sql .= "('10', 'Agriculture and Farming', '1', '0', '0', '1'),";
+			$sql .= "('11', 'Raw Materials and Supplies', '0', '10', '0', '1'),";
+			$sql .= "('12', 'Flora and Horticulture', '0', '10', '0', '1'),";
+			$sql .= "('13', 'Animal Feed', '0', '10', '0', '1'),";
+			$sql .= "('14', 'Live Animals', '0', '10', '0', '1'),";
+			$sql .= "('15', 'Products and Services', '0', '10', '0', '1'),";
+			$sql .= "('16', 'Poultry, Bee and Animal Husbandry', '0', '10', '0', '1'),";
+			$sql .= "('17', 'Machinery and Equipment', '0', '10', '0', '1'),";
+
+			$sql .= "('18', 'Air conditioning and Refrigeration', '1', '0', '0', '1'),";
+
+			$sql .= "('19', 'Art', '1', '0', '0', '1'),";
+			$sql .= "('20', 'Musical Instruments', '0', '19', '0', '1'),";
+			$sql .= "('21', 'Audio Visual, Photography and Filming Service and Equipment', '0', '19', '0', '1'),";
+			$sql .= "('22', 'Music and Entertainment', '0', '19', '0', '1'),";
+			$sql .= "('23', 'Fine Art, Antiques, Crafts', '0', '19', '0', '1'),";
+
+			$sql .= "('24', 'Banking Equipment and Services', '1', '0', '0', '1'),";
+			$sql .= "('25', 'Bid Modification, Amendment and Cancellation', '1', '0', '0', '1'),";
+			$sql .= "('26', 'Catering and Cafeteria Services', '1', '0', '0', '1'),";
+			$sql .= "('27', 'Chemicals and Reagents', '1', '0', '0', '1'),";
+			$sql .= "('28', 'Cleaning and Janitorial Equipment and Service', '1', '0', '0', '1'),";
+
+			$sql .= "('29', 'Construction and Water Works', '1', '0', '0', '1'),";
+			$sql .= "('30', 'Building Construction', '0', '29', '0', '1'),";
+			$sql .= "('31', 'Road and Bridge Construction', '0', '29', '0', '1'),";
+			$sql .= "('32', 'Water System Installation', '0', '29', '0', '1'),";
+			$sql .= "('33', 'Water Well and Pool Cleaning', '0', '29', '0', '1'),";
+			$sql .= "('34', 'Architectural and Construction Design', '0', '29', '0', '1'),";
+			$sql .= "('35', 'Water Construction', '0', '29', '0', '1'),";
+			$sql .= "('36', 'Irrigation Works', '0', '29', '0', '1'),";
+			$sql .= "('37', 'Sewerage', '0', '29', '0', '1'),";
+			$sql .= "('38', 'Water Engineering Machinery and Equipment', '0', '29', '0', '1'),";
+			$sql .= "('39', 'Water Well Drilling', '0', '29', '0', '1'),";
+			$sql .= "('40', 'Building and Finishing Materials', '0', '29', '0', '1'),";
+			$sql .= "('41', 'Contract Administration and Supervision', '0', '29', '0', '1'),";
+			$sql .= "('42', 'Finishig Works', '0', '29', '0', '1'),";
+			$sql .= "('43', 'Water Proofing Works', '0', '29', '0', '1'),";
+			$sql .= "('44', 'Water Pipes and Fittings', '0', '29', '0', '1'),";
+			$sql .= "('45', 'Construction Machinery and Equipment', '0', '29', '0', '1'),";
+
+			$sql .= "('46', 'Consultancy', '1', '0', '0', '1'),";
+			$sql .= "('47', 'Engineering', '0', '46', '0', '1'),";
+			$sql .= "('48', 'Financial', '0', '46', '0', '1'),";
+			$sql .= "('49', 'Environmental', '0', '46', '0', '1'),";
+			$sql .= "('50', 'Agricultural', '0', '46', '0', '1'),";
+			$sql .= "('51', 'Other', '0', '46', '0', '1'),";
+			$sql .= "('52', 'ICT', '0', '46', '0', '1'),";
+			$sql .= "('53', 'Health Related', '0', '46', '0', '1'),";
+			$sql .= "('54', 'Legal', '0', '46', '0', '1'),";
+			$sql .= "('55', 'Academic', '0', '46', '0', '1'),";
+			$sql .= "('56', 'Organizational', '0', '46', '0', '1'),";
+			$sql .= "('57', 'Social and Public Policy', '0', '46', '0', '1'),";
+
+			$sql .= "('58', 'Consumable Goods', '1', '0', '0', '1'),";
+
+			$sql .= "('59', 'Courier Services', '1', '0', '0', '1'),";
+
+			$sql .= "('60', 'Distribution of Different products', '1', '0', '0', '1'),";
+
+			$sql .= "('61', 'Education and Training', '1', '0', '0', '1'),";
+			$sql .= "('62', 'Services', '0', '61', '0', '1'),";
+			$sql .= "('63', 'Materials', '0', '61', '0', '1'),";
+
+			$sql .= "('64', 'Electrical, Electromechanical and Electronics', '1', '0', '0', '1'),";
+			$sql .= "('65', 'Equipment and Accessories', '0', '64', '0', '1'),";
+			$sql .= "('66', 'Installation, Maintenance and Other Engineering Services', '0', '64', '0', '1'),";
+			$sql .= "('67', 'Pumps, Motors and Compressors', '0', '64', '0', '1'),";
+
+			$sql .= "('68', 'Energy, Power and Electricity', '1', '0', '0', '1'),";
+			$sql .= "('69', 'Hydro Power', '0', '68', '0', '1'),";
+			$sql .= "('70', 'Solar and Photovoltaic', '0', '68', '0', '1'),";
+			$sql .= "('71', 'Coal', '0', '68', '0', '1'),";
+			$sql .= "('72', 'Firewood', '0', '68', '0', '1'),";
+			$sql .= "('73', 'Generators', '0', '68', '0', '1'),";
+
+			$sql .= "('74', 'Food Items and Drinks', '1', '0', '0', '1'),";
+			$sql .= "('75', 'Food and Beverage', '1', '0', '0', '1'),";
+			$sql .= "('76', 'Fuel and Lubricants', '1', '0', '0', '1'),";
+
+			$sql .= "('77', 'Furniture and Furnishing', '1', '0', '0', '1'),";
+			$sql .= "('78', 'Home Appliance and Supplies', '0', '77', '0', '1'),";
+			$sql .= "('79', 'House Furniture', '0', '77', '0', '1'),";
+			$sql .= "('80', 'Office Furniture', '0', '77', '0', '1'),";
+			$sql .= "('81', 'Carpets and Curtains', '0', '77', '0', '1'),";
+
+			$sql .= "('82', 'Gardening and Landscaping', '1', '0', '0', '1'),";
+			$sql .= "('83', 'General Service Provision', '1', '0', '0', '1'),";
+			$sql .= "('84', 'Geotechnical Investigation & Laboratory Testing', '1', '0', '0', '1'),";
+			$sql .= "('85', 'Government Treasury Bill', '1', '0', '0', '1'),";
+			$sql .= "('86', 'Hand Tools and Workshop Equipment', '1', '0', '0', '1'),";
+
+			$sql .= "('87', 'Health Care, Medical Industry', '1', '0', '0', '1'),";
+			$sql .= "('88', 'Pharmaceutical Products', '0', '87', '0', '1'),";
+			$sql .= "('89', 'Health Related Services and Materials', '0', '87', '0', '1'),";
+			$sql .= "('90', 'Veterinary Equipment and Supplies', '0', '87', '0', '1'),";
+			$sql .= "('91', 'Medical Equipment and Supplies', '0', '87', '0', '1'),";
+
+			$sql .= "('92', 'Hospitality, Tour and Travel', '1', '0', '0', '1'),";
+			$sql .= "('93', 'Tour and Travel', '0', '92', '0', '1'),";
+			$sql .= "('94', 'Air Ticket', '0', '92', '0', '1'),";
+			$sql .= "('95', 'Hotel Service Provision', '0', '92', '0', '1'),";
+
+			$sql .= "('96', 'Humanitarian Aid Supply, Relief Items', '1', '0', '0', '1'),";
+
+			$sql .= "('97', 'IT and Telecom', '1', '0', '0', '1'),";
+			$sql .= "('98', 'Telecommunication Service', '0', '97', '0', '1'),";
+			$sql .= "('99', 'Software Provision, Development and Web Design', '0', '97', '0', '1'),";
+			$sql .= "('100', 'Computer and Accessories', '0', '97', '0', '1'),";
+			$sql .= "('101', 'Telecommunication  Equipment', '0', '97', '0', '1'),";
+			$sql .= "('102', 'Networking Equipment and Installation', '0', '97', '0', '1'),";
+
+			$sql .= "('103', 'Industrial Machinery Provision and Installation', '1', '0', '0', '1'),";
+			$sql .= "('104', 'Insurance Service', '1', '0', '0', '1'),";
+			$sql .= "('105', 'Interior Design Service and Material', '1', '0', '0', '1'),";
+			$sql .= "('106', 'International Competitive Bidding (ICB)', '1', '0', '0', '1'),";
+			$sql .= "('107', 'Kitchen Equipment', '1', '0', '0', '1'),";
+			$sql .= "('108', 'Laboratory Equipment and Chemicals', '1', '0', '0', '1'),";
+			$sql .= "('109', 'Labour Outsourcing Services', '1', '0', '0', '1'),";
+			$sql .= "('110', 'Land Lease & Real Estate', '1', '0', '0', '1'),";
+
+			$sql .= "('111', 'Maintenance and Repair', '1', '0', '0', '1'),";
+			$sql .= "('112', 'Others', '0', '111', '0', '1'),";
+			$sql .= "('113', 'Machinery', '0', '111', '0', '1'),";
+			$sql .= "('114', 'Office Machines and Computers', '0', '111', '0', '1'),";
+			$sql .= "('115', 'Vehicle (garage service)', '0', '111', '0', '1'),";
+			$sql .= "('116', 'Furniture', '0', '111', '0', '1'),";
+			$sql .= "('117', 'House and Building', '0', '111', '0', '1'),";
+
+			$sql .= "('118', 'Materials', '1', '0', '0', '1'),";
+
+			$sql .= "('119', 'Mechanical', '1', '0', '0', '1'),";
+			$sql .= "('120', 'Installation, Maintenance and Other Engineering Services', '0', '121', '0', '1'),";
+			$sql .= "('121', 'Equipment and Accessories', '0', '121', '0', '1'),";
+
+			$sql .= "('122', 'Metal and Metal Working', '1', '0', '0', '1'),";
+			$sql .= "('123', 'Mineral and Natural Resources', '1', '0', '0', '1')";
+			// $sql .= "('12', '', '1', '0', '0', '1'),";
 
 			dbDelta($sql);
 		}

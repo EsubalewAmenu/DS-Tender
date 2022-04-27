@@ -220,9 +220,7 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                 onlyParents: false,
                 fromThis: false
             });
-            jQuery("#displayItems").html(List.text.join("<br>"));
-            var L = List.id.length;
-            console.log(List)
+            // console.log(List.dataid)
 
 
             if (isAllFiled()) {
@@ -265,6 +263,7 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                 form_data.append('bid_doc_price', bid_doc_price);
                 form_data.append('bid_bond', bid_bond);
                 form_data.append('edit_tender_id', edit_tender_id);
+                form_data.append('categories', List.dataid);
                 form_data.append('title', title);
                 form_data.append('content', content);
 
@@ -318,6 +317,23 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                     format: 'raw'
                 }) === '<p><br data-mce-bogus=\"1\"></p>') {
                 jQuery("#server_response").append('content is required</br>');
+                $filled = false;
+            }
+
+            var List = {
+                "id": [],
+                "dataid": [],
+                "text": []
+            };
+            jQuery("#treeview").hummingbird("getChecked", {
+                list: List,
+                onlyEndNodes: true,
+                onlyParents: false,
+                fromThis: false
+            });
+
+            if (!List.dataid.length) {
+                jQuery("#server_response").append('Please choose atlease one category</br>');
                 $filled = false;
             }
 

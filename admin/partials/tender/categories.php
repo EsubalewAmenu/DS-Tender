@@ -36,56 +36,44 @@
 <!-- <div class="container"> -->
 <div id="treeview_container" class="hummingbird-treeview" style="height: 230px; overflow-y: scroll">
     <ul id="treeview" class="hummingbird-base">
-        <li data-id="0">
-            <i class="fa fa-plus"></i>
-            <label>
-                <input id="xnode-0" data-id="custom-0" type="checkbox" /> node-0
-            </label>
-            <ul>
-                <li data-id="1">
+        <?php
+        global $table_prefix, $wpdb;
+        $wp_table = $table_prefix . "ds_tender_categories";
+        $categories = $wpdb->get_results("SELECT id, category_name, main_category, sub_category FROM $wp_table where main_category!=0 order by category_name asc");
+
+        foreach ($categories as $category) {
+
+            $subCategories = $wpdb->get_results("SELECT id, category_name, main_category, sub_category FROM $wp_table where sub_category='" . $category->id . "' order by category_name asc");
+            // print_r($subCategories);
+
+            if ($subCategories) {
+        ?>
+                <li data-id="<?php echo $category->id ?>">
                     <i class="fa fa-plus"></i>
                     <label>
-                        <input id="xnode-0-1" data-id="custom-0-1" type="checkbox" />
-                        node-0-1
+                        <input id="xnode-<?php echo $category->id ?>" data-id="custom-<?php echo $category->id ?>" type="checkbox" /> <?php echo $category->category_name ?>
                     </label>
                     <ul>
-                        <li>
-                            <label>
-                                <input class="hummingbird-end-node" id="xnode-0-1-1" data-id="custom-0-1-1" type="checkbox" />
-                                node-0-1-1
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input class="hummingbird-end-node" id="xnode-0-1-2" data-id="custom-0-1-2" type="checkbox" />
-                                node-0-1-2
-                            </label>
-                        </li>
+                        <?php foreach ($subCategories as $subCategory) { ?>
+                            <li>
+                                <label>
+                                    <input class="hummingbird-end-node" id="xnode-<?php echo $category->id . '-' . $subCategory->id ?>" data-id="<?php echo $subCategory->id ?>" type="checkbox" />
+                                    <?php echo $subCategory->category_name ?>
+                                </label>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </li>
-                <li data-id="1">
-                    <i class="fa fa-plus"></i>
+            <?php
+            } else { ?>
+                <li>
                     <label>
-                        <input id="xnode-0-2" data-id="custom-0-2" type="checkbox" />
-                        node-0-2
+                        <input class="hummingbird-end-node" id="xnode-<?php echo $category->id ?>" data-id="<?php echo $category->id ?>" type="checkbox" />
+                        <?php echo $category->category_name ?>
                     </label>
-                    <ul>
-                        <li>
-                            <label>
-                                <input class="hummingbird-end-node" id="xnode-0-2-1" data-id="custom-0-2-1" type="checkbox" />
-                                node-0-2-1
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input class="hummingbird-end-node" id="xnode-0-2-2" data-id="custom-0-2-2" type="checkbox" />
-                                node-0-2-2
-                            </label>
-                        </li>
-                    </ul>
                 </li>
-            </ul>
-        </li>
+        <?php  }
+        } ?>
     </ul>
 </div>
 <button class="btn btn-primary" id="checkAll">Check All</button>

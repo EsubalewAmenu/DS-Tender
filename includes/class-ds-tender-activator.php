@@ -157,10 +157,10 @@ class Ds_Tender_Activator
 			$sql .= "  `id` int(10) unsigned NOT NULL AUTO_INCREMENT, ";
 
 			$sql .= "  `company_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";
-			$sql .= "  `phone` varchar(25) COLLATE utf8mb4_unicode_ci NULL, ";
+			$sql .= "  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NULL, ";
 			$sql .= "  `website` varchar(255) COLLATE utf8mb4_unicode_ci NULL, ";
 			$sql .= "  `email` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
-			$sql .= "  `fax` varchar(25) COLLATE utf8mb4_unicode_ci NULL, ";
+			$sql .= "  `fax` varchar(255) COLLATE utf8mb4_unicode_ci NULL, ";
 			$sql .= "  `address` text NULL, ";
 
 			$sql .= "  `two_merkato_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, ";

@@ -43,6 +43,7 @@ class DS_tender_admin_tender
 
 		global $table_prefix, $wpdb;
 		$wp_table = $table_prefix . "ds_tenders";
+		$wp_categories_table = $table_prefix . "ds_tender_tender_categories";
 
 
 
@@ -58,6 +59,7 @@ class DS_tender_admin_tender
 		$region_id = $_POST['region'];
 		$company_id = $_POST['company_id'];
 		$two_merkato_id = $_POST['two_merkato_id'];
+		$categories = explode(",", $_POST['categories']);
 		$enabled = 1; //$_POST['enabled'];
 
 		if ($_POST['edit_tender_id'] > 0) {
@@ -86,7 +88,13 @@ class DS_tender_admin_tender
 				'user_id' => get_current_user_id(),
 			));
 
-			// echo "company ID : " . $wpdb->insert_id;
+			$tender_id = $wpdb->insert_id;
+			foreach ($categories as $category_id) {
+				$wpdb->insert($wp_categories_table, array(
+					'tender_id' => $tender_id,
+					'category_id' => $category_id,
+				));
+			}
 		}
 		echo "Completed!";
 		die();

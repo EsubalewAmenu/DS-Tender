@@ -44,7 +44,12 @@ class DS_tender_admin_base
 
 	function ds_tender_list_on_click()
 	{
-		echo "list of tenders :)";
+		global $table_prefix, $wpdb;
+		$wp_table = $table_prefix . "ds_tenders";
+
+		$tenders = $wpdb->get_results("SELECT id, title, closing_date, source_id, published_date, two_merkato_id, user_id FROM $wp_table order by id desc");
+		include_once ds_tender_PLAGIN_DIR . '/admin/partials/tender/index.php';
+		
 	}
 	function ds_tender_add_company_on_click()
 	{

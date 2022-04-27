@@ -27,114 +27,30 @@ class DS_tender_public_get_tender_api
     {
     }
 
-    function rest_get_tender()
+    function rest_tenders()
     {
-        add_action('rest_api_init', function () {
-            register_rest_route(ds_tender . '/v1', '/get_tender', array(
-                'methods' => 'GET',
-                'callback' => function (WP_REST_Request $request) {
-                    // $tx_hash = $request->get_param('tx_hash');
+        // test with https://tezt.localhost/api/ds_tender/v1/tenders/0/1,2,4
 
-                    //is updated get from db
-                    if (false) {
-                        echo "db updated test working";
-                    } else {
-                        echo "db updated test working";
-                    }
-                },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
-                }
-            ));
-        });
-    }
-    function rest_check_hold()
-    {
         add_action('rest_api_init', function () {
-            register_rest_route(ds_bt . '/v1', '/hold/spot', array(
+            register_rest_route(ds_tender . '/v1', '/tenders/(?P<offset>\d+)/(?P<categories>[1-9][1-9,]+[1-9])', array( // where categories are 1,2,23,56
                 'methods' => 'GET',
                 'callback' => function (WP_REST_Request $request) {
-                    // $tx_hash = $request->get_param('tx_hash');
-                    $Ds_bt_holder = new Ds_bt_holder();
-                    $Ds_bt_holder->main();
-                },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
-                }
-            ));
-        });
-    }
 
-    function rest_check_margin_trade()
-    {
-        add_action('rest_api_init', function () {
-            register_rest_route(ds_bt . '/v1', '/trade/margin', array(
-                'methods' => 'GET',
-                'callback' => function (WP_REST_Request $request) {
-                    // $tx_hash = $request->get_param('tx_hash');
+                    $categories = $request->get_param('categories');
+                    $offset = $request->get_param('offset');
 
-                    $Ds_bt_margin = new Ds_bt_margin();
-                    $Ds_bt_margin->main();
-                },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
-                }
-            ));
-        });
-    }
-    function rest_check_tradingview()
-    {
-        add_action('rest_api_init', function () {
-            register_rest_route(ds_bt . '/v1', '/tradingview/spot', array(
-                'methods' => 'GET',
-                'callback' => function (WP_REST_Request $request) {
-                    $Ds_bt_tradingview = new Ds_bt_tradingview();
-                    $Ds_bt_tradingview->main();
-                },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
-                }
-            ));
-        });
-    }
-    function rest_check_trade1p()
-    {
-        add_action('rest_api_init', function () {
-            register_rest_route(ds_bt . '/v1', '/trade1p/spot', array(
-                'methods' => 'GET',
-                'callback' => function (WP_REST_Request $request) {
-                    $Ds_bt_trade1p = new Ds_bt_trade1p();
-                    $Ds_bt_trade1p->main();
-                },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
-                }
-            ));
-        });
-    }
-    function rest_check_holderv2()
-    {
-        add_action('rest_api_init', function () {
-            register_rest_route(ds_bt . '/v1', '/holderv2/spot', array(
-                'methods' => 'GET',
-                'callback' => function (WP_REST_Request $request) {
-                    $Ds_bt_holderv2 = new Ds_bt_holderv2();
-                    $Ds_bt_holderv2->main();
-                },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
-                }
-            ));
-        });
-    }
-    function rest_check_test()
-    {
-        add_action('rest_api_init', function () {
-            register_rest_route(ds_bt . '/v1', '/test', array(
-                'methods' => 'GET',
-                'callback' => function (WP_REST_Request $request) {
-                    $Ds_bt_test = new Ds_bt_test();
-                    $Ds_bt_test->main();
+                    global $table_prefix, $wpdb;
+                    $wp_table = $table_prefix . "ds_tenders";
+                    $wp_tender_categories_table = $table_prefix . "ds_tender_tender_categories";
+
+                    $tenders = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date FROM $wp_table as tend INNER JOIN " .
+                        $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id WHERE category_id IN (" . $categories . ") ORDER BY id DESC LIMIT " . $offset . ", 10");
+
+                    return array(
+                        "success" => true,
+                        "offset" => $offset + count($tenders),
+                        "tenders" => $tenders
+                    );
                 },
                 'permission_callback' => function () {
                     return true; //current_user_can('edit_others_posts');

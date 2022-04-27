@@ -170,7 +170,7 @@ class Ds_Tender
 		$DS_tender_admin_company = new DS_tender_admin_company();
 		$this->loader->add_action('wp_ajax_ds_tender_save_company', $DS_tender_admin_company, 'wp_ajax_ds_tender_save_company', 1, 1);
 		$this->loader->add_action('wp_ajax_ds_tender_get_company_id', $DS_tender_admin_company, 'wp_ajax_ds_tender_get_company_id', 1, 1);
-		
+
 		$DS_tender_admin_tender = new DS_tender_admin_tender();
 		$this->loader->add_action('wp_ajax_ds_tender_save_tender', $DS_tender_admin_tender, 'wp_ajax_ds_tender_save_tender', 1, 1);
 		$this->loader->add_action('wp_ajax_ds_tender_check_if_added', $DS_tender_admin_tender, 'wp_ajax_ds_tender_check_if_added', 1, 1);
@@ -193,6 +193,7 @@ class Ds_Tender
 
 		$DS_tender_public_get_tender_api = new DS_tender_public_get_tender_api();
 		$this->loader->add_action('rest_api_init', $DS_tender_public_get_tender_api, 'rest_tenders', 1, 1);
+		$this->loader->add_action('rest_api_init', $DS_tender_public_get_tender_api, 'rest_tender', 1, 1);
 	}
 
 	/**

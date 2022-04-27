@@ -58,4 +58,33 @@ class DS_tender_public_get_tender_api
             ));
         });
     }
+    function rest_tender()
+    {
+        // test with https://tezt.localhost/api/ds_tender/v1/tender/1
+
+        add_action('rest_api_init', function () {
+            register_rest_route(ds_tender . '/v1', '/tender/(?P<tender_id>\d+)', array(
+                'methods' => 'GET',
+                'callback' => function (WP_REST_Request $request) {
+
+                    $tender_id = $request->get_param('tender_id');
+
+                    global $table_prefix, $wpdb;
+                    $wp_table = $table_prefix . "ds_tenders";
+                    $wp_tender_categories_table = $table_prefix . "ds_tender_tender_categories";
+
+                    $tender = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date FROM $wp_table as tend INNER JOIN " .
+                        $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id WHERE id= " . $tender_id . "");
+
+                    return array(
+                        "success" => true,
+                        "tender" => $tender
+                    );
+                },
+                'permission_callback' => function () {
+                    return true; //current_user_can('edit_others_posts');
+                }
+            ));
+        });
+    }
 }

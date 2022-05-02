@@ -32,19 +32,20 @@ class DS_tender_public_get_tender_api
         // test with https://tezt.localhost/api/ds_tender/v1/tenders/0/1,2,4
 
         add_action('rest_api_init', function () {
-            register_rest_route(ds_tender . '/v1', '/tenders/(?P<offset>\d+)/(?P<categories>[0-9][0-9,]+[0-9])', array( // where categories are 1,2,23,56
+            register_rest_route(ds_tender . '/v1', '/tenders/(?P<offset>\d+)/(?P<limit>\d+)/(?P<categories>[0-9][0-9,]+[0-9])', array( // where categories are 1,2,23,56
                 'methods' => 'GET',
                 'callback' => function (WP_REST_Request $request) {
 
                     $categories = $request->get_param('categories');
                     $offset = $request->get_param('offset');
+                    $limit = $request->get_param('limit');
 
                     global $table_prefix, $wpdb;
                     $wp_table = $table_prefix . "ds_tenders";
                     $wp_tender_categories_table = $table_prefix . "ds_tender_tender_categories";
 
                     $tenders = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date FROM $wp_table as tend INNER JOIN " .
-                        $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id WHERE category_id IN (" . $categories . ") ORDER BY id DESC LIMIT " . $offset . ", 10");
+                        $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id WHERE category_id IN (" . $categories . ") ORDER BY id DESC LIMIT " . $offset . ", " . $limit);
 
                     return array(
                         "success" => true,
@@ -73,8 +74,8 @@ class DS_tender_public_get_tender_api
                     $wp_table = $table_prefix . "ds_tenders";
                     $wp_tender_categories_table = $table_prefix . "ds_tender_tender_categories";
 
-                    $tender = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date FROM $wp_table as tend INNER JOIN " .
-                        $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id WHERE id= " . $tender_id . "");
+                    $tender = $wpdb->get_results("SELECT DISTINCT tend.id, content, opening_date FROM $wp_table as tend INNER JOIN " .
+                        $wp_tender_categories_table . " as tend_cats ON tend.Id = tender_id WHERE tend.id=" . $tender_id . "");
 
                     return array(
                         "success" => true,

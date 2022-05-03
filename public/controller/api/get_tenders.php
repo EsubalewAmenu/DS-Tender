@@ -53,8 +53,8 @@ class DS_tender_public_get_tender_api
                         "tenders" => $tenders
                     );
                 },
-                'permission_callback' => function (WP_REST_Request $request) {
-                    return self::is_user_verified($request);
+                'permission_callback' => function () {
+                    return self::is_user_verified();
                 }
             ));
         });
@@ -82,9 +82,9 @@ class DS_tender_public_get_tender_api
                         "tender" => $tender
                     );
                 },
-                'permission_callback' => function (WP_REST_Request $request) {
+                'permission_callback' => function () {
 
-                    return self::is_user_verified($request);
+                    return self::is_user_verified();
                 }
             ));
         });

@@ -53,8 +53,8 @@ class DS_tender_public_get_tender_api
                         "tenders" => $tenders
                     );
                 },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
+                'permission_callback' => function (WP_REST_Request $request) {
+                    return self::is_user_verified($request);
                 }
             ));
         });
@@ -82,10 +82,24 @@ class DS_tender_public_get_tender_api
                         "tender" => $tender
                     );
                 },
-                'permission_callback' => function () {
-                    return true; //current_user_can('edit_others_posts');
+                'permission_callback' => function (WP_REST_Request $request) {
+
+                    return self::is_user_verified($request);
                 }
             ));
         });
+    }
+    public function is_user_verified()
+    {
+        $auth = apache_request_headers();
+        if (isset($auth['username']) && isset($auth['password'])) {
+
+            $username = $auth['username'];
+            $password = $auth['password'];
+
+            $check = wp_authenticate_username_password(NULL, $username, $password);
+
+            return !is_wp_error($check);
+        } else return false;
     }
 }

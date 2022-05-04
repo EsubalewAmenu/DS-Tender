@@ -74,7 +74,7 @@ class DS_tender_public_get_tender_api
                     $wp_table = $table_prefix . "ds_tenders";
                     $wp_tender_categories_table = $table_prefix . "ds_tender_tender_categories";
 
-                    $tender = $wpdb->get_results("SELECT DISTINCT tend.id, content, opening_date FROM $wp_table as tend INNER JOIN " .
+                    $tender = $wpdb->get_row("SELECT DISTINCT tend.id, content, opening_date FROM $wp_table as tend INNER JOIN " .
                         $wp_tender_categories_table . " as tend_cats ON tend.Id = tender_id WHERE tend.id=" . $tender_id . "");
 
                     return array(

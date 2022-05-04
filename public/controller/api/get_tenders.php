@@ -43,9 +43,14 @@ class DS_tender_public_get_tender_api
                     global $table_prefix, $wpdb;
                     $wp_table = $table_prefix . "ds_tenders";
                     $wp_tender_categories_table = $table_prefix . "ds_tender_tender_categories";
+                    $wp_ds_tender_sources_table = $table_prefix . "ds_tender_sources";
+                    $wp_ds_b_regions_table = $table_prefix . "ds_b_regions";
 
-                    $tenders = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date FROM $wp_table as tend INNER JOIN " .
-                        $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id WHERE category_id IN (" . $categories . ") ORDER BY id DESC LIMIT " . $offset . ", " . $limit);
+                    $tenders = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date, source_name FROM ".$wp_table." as tend ".
+                    "INNER JOIN " . $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id ".
+                    "INNER JOIN " . $wp_ds_tender_sources_table . " as tend_source ON tend_source.id = source_id ".
+                    // "INNER JOIN " . $wp_ds_b_regions_table . " as tend_region ON tend_region.id = region_id ".
+                    "WHERE category_id IN (" . $categories . ") ORDER BY id DESC LIMIT " . $offset . ", " . $limit);
 
                     return array(
                         "success" => true,

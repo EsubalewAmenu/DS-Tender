@@ -59,10 +59,10 @@ class Ds_Tender_Activator
 			$sql .= "  `title` text NOT NULL, ";
 			$sql .= "  `content` text NOT NULL, ";
 
-			$sql .= "  `opening_date` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
-			$sql .= "  `closing_date` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
+			$sql .= "  `opening_date` DATETIME NULL, ";
+			$sql .= "  `closing_date` DATETIME NULL, ";
 			$sql .= "  `source_id`  int(10) NULL, ";
-			$sql .= "  `published_date` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
+			$sql .= "  `published_date` DATE NULL, ";
 			$sql .= "  `bid_doc_price` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
 			$sql .= "  `bid_bond` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";
 			$sql .= "  `region_id` varchar(50) COLLATE utf8mb4_unicode_ci NULL, ";

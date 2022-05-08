@@ -46,11 +46,21 @@ class DS_tender_public_get_tender_api
                     $wp_ds_tender_sources_table = $table_prefix . "ds_tender_sources";
                     $wp_ds_b_regions_table = $table_prefix . "ds_b_regions";
 
-                    $tenders = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date, source_name, IF(closing_date>NOW(), 'Open', 'Closed') as tender_status, DATEDIFF(closing_date, NOW()) as days_left FROM ".$wp_table." as tend ".
-                    "INNER JOIN " . $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id ".
-                    "INNER JOIN " . $wp_ds_tender_sources_table . " as tend_source ON tend_source.id = source_id ".
-                    // "INNER JOIN " . $wp_ds_b_regions_table . " as tend_region ON tend_region.id = region_id ".
-                    "WHERE category_id IN (" . $categories . ") ORDER BY id DESC LIMIT " . $offset . ", " . $limit);
+
+                    $headers = apache_request_headers();
+                    if (isset($headers['search']))
+                        $where = "title LIKE '%" . $headers['search'] . "%'";
+                    else if ($categories == "0,0") {
+                        $where = "1";
+                    } else {
+                        $where = "category_id IN (" . $categories . ")";
+                    }
+
+                    $tenders = $wpdb->get_results("SELECT DISTINCT tend.id, title, closing_date, source_name, IF(closing_date>NOW(), 'Open', 'Closed') as tender_status, DATEDIFF(closing_date, NOW()) as days_left FROM " . $wp_table . " as tend " .
+                        "INNER JOIN " . $wp_tender_categories_table . " as tend_cats ON tend.id = tender_id " .
+                        "INNER JOIN " . $wp_ds_tender_sources_table . " as tend_source ON tend_source.id = source_id " .
+                        // "INNER JOIN " . $wp_ds_b_regions_table . " as tend_region ON tend_region.id = region_id ".
+                        "WHERE $where ORDER BY id DESC LIMIT " . $offset . ", " . $limit);
 
                     return array(
                         "success" => true,

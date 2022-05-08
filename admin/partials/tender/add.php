@@ -62,17 +62,17 @@ $sources = $wpdb->get_results("SELECT * FROM $wp_ds_sources_table where `deleted
                 </div>
                 <div class="form-group col-sm-5">
                     <label for="opening_date">Opening date</label>
-                    <input required id="opening_date" type="text" class="form-control" id="opening_date" value="<?php if (isset($tender->opening_date)) echo $tender->opening_date ?>">
+                    <input required id="opening_date" type="datetime-local" class="form-control" id="opening_date" value="<?php if (isset($tender->opening_date)) echo $tender->opening_date ?>">
                 </div>
 
                 <div class="form-group col-sm-5">
                     <label for="closing_date">closing date</label>
-                    <input required id="closing_date" type="text" class="form-control" id="closing_date" value="<?php if (isset($tender->closing_date)) echo $tender->closing_date ?>">
+                    <input required id="closing_date" type="datetime-local" class="form-control" id="closing_date" value="<?php if (isset($tender->closing_date)) echo $tender->closing_date ?>">
                 </div>
 
                 <div class="form-group col-sm-5">
                     <label for="published_date">published date</label>
-                    <input required id="published_date" type="text" class="form-control" id="published_date" value="<?php if (isset($tender->published_date)) echo $tender->published_date ?>">
+                    <input required id="published_date" type="date" class="form-control" id="published_date" value="<?php if (isset($tender->published_date)) echo $tender->published_date ?>">
                 </div>
 
                 <div class="form-group col-sm-5">
